@@ -21,7 +21,12 @@ if st.button("計算並產生電路圖"):
     with st.spinner('正在繪製電路圖...'):
         try:
             d = circuit_generator.get_circuit_drawing(eqs)
-            st.pyplot(d.draw())
+            
+            # 【關鍵修改點】：
+            # 使用 schemdraw 的 draw() 方法並將其繪製到 Matplotlib 的 Figure 上
+            fig = d.draw() 
+            st.pyplot(fig)  # 直接將 figure 傳給 streamlit
+            
             st.success("繪圖成功！")
         except Exception as e:
             st.error(f"繪圖發生錯誤: {e}")
